@@ -9,7 +9,7 @@ services:
     ports:
       - 11300:11300
     volumes:
-      - ./beanstalk_data:/data
+      - ${PWD}/beanstalk_data:/data
     networks:
       - go_delay_network
   beanstalkd-console:
