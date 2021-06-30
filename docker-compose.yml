@@ -12,13 +12,24 @@ services:
       - ${PWD}/beanstalk_data:/data
     networks:
       - go_delay_network
+  beanstalkd2:
+    image: schickling/beanstalkd
+    container_name: beanstalkd2
+    ports:
+      - 11301:11300
+    volumes:
+      - ${PWD}/beanstalk_data2:/data
+    networks:
+      - go_delay_network
   beanstalkd-console:
     image: schickling/beanstalkd-console
     container_name: beanstalkd-console
     depends_on:
       - beanstalkd
+      - beanstalkd2
     links:
       - beanstalkd
+      - beanstalkd2
     environment:
       BEANSTALKD_PORT_11300_TCP_ADDR: beanstalkd
     ports:
